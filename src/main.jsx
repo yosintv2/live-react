@@ -35,6 +35,11 @@ d.body.appendChild(c)
   h.appendChild(x)
 })()
 
+var r = d.createElement('meta')
+r.name = 'robots'
+r.content = 'noindex, nofollow'
+h.appendChild(r)
+
 var _c = __APP_CONFIG__
 d.title = _c.siteName + ' | Live Stream'
 
