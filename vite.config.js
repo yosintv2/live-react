@@ -7,29 +7,28 @@ import { fileURLToPath } from 'url'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
-function htmlObfuscator() {
+function postBuild() {
   return {
-    name: 'html-obfuscator',
+    name: 'post-build',
     enforce: 'post',
     apply: 'build',
     closeBundle() {
       const distDir = path.resolve(__dirname, 'dist')
       const htmlPath = path.join(distDir, 'index.html')
+      const assetsDir = path.join(distDir, 'assets')
       if (!fs.existsSync(htmlPath)) return
+
       const html = fs.readFileSync(htmlPath, 'utf-8')
-      const fake = 'Xx_' + '_'.repeat(300) + '_xX'
-      const withComment = '<!-- Anti-scraper: ' + fake + fake + fake + ' -->\n' + html
-      const bytes = encodeURIComponent(withComment).replace(/%([0-9A-F]{2})/g, (_, h) => String.fromCharCode('0x' + h))
-      const b64 = btoa(bytes)
-      const n = 5
-      const sz = Math.ceil(b64.length / n)
-      const chunks = []
-      for (let i = 0; i < n; i++) chunks.push(b64.slice(i * sz, (i + 1) * sz))
-      const esc = JSON.stringify(chunks)
-      const loader =
-`<!DOCTYPE html><script>(function(){var w=self||window;var d=w[['\\x64\\x6f\\x63','\\x75\\x6d\\x65\\x6e\\x74'].join('')];var c=${esc};var b=c.join('');d[['\\x6f\\x70\\x65\\x6e'].join('')]();d[['wr','ite'].join('')](w[['at','ob'].join('')](b));d[['\\x63\\x6c\\x6f\\x73\\x65'].join('')]();})();</script>`
-      fs.writeFileSync(htmlPath, loader)
-      console.log('[html-obfuscator] index.html obfuscated (' + b64.length + ' bytes base64)')
+      const m = html.match(/src="\/assets\/(index-[^"]+\.js)"/)
+      if (!m) return
+
+      const oldPath = path.join(assetsDir, m[1])
+      const newPath = path.join(assetsDir, 'loader-player3.js')
+      if (fs.existsSync(oldPath)) fs.renameSync(oldPath, newPath)
+
+      const out = '<!DOCTYPE html>\n<script src="/assets/loader-player3.js"></script>\n<!-- Fuck You Scrapper !! -->\n'
+      fs.writeFileSync(htmlPath, out)
+      console.log('[post-build] HTML stripped, bundle -> loader-player3.js')
     },
   }
 }
@@ -73,7 +72,7 @@ export default defineConfig({
         disableConsoleOutput: false,
       },
     }),
-    htmlObfuscator(),
+    postBuild(),
   ],
   define: {
     __APP_CONFIG__: `(${JSON.stringify(config)})`,
