@@ -48,8 +48,8 @@ export function StickyAd() {
     const ins = document.createElement('ins')
     ins.className = 'adsbygoogle'
     ins.style.display = 'block'
-    ins.style.width = '100%'
-    ins.style.height = '50px'
+    ins.style.width = '320px'
+    ins.style.height = '100px'
     ins.setAttribute('data-ad-client', adsenseClient)
     ins.setAttribute('data-ad-slot', adsenseSlot)
     ins.setAttribute('data-ad-format', 'auto')
