@@ -99,7 +99,7 @@ export function StickyAd() {
         aria-label="Close ad"
         onClick={close}
       >
-        X
+        × Close
       </button>
       <div className="swipe-bar"></div>
       <div id="stickyAdSlot" ref={slotRef}></div>
