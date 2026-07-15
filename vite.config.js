@@ -24,9 +24,7 @@ export default defineConfig({
   plugins: [
     react(),
     obfuscator({
-      global: false,
-      include: ['src/**/*.{js,jsx}'],
-      exclude: ['node_modules/**'],
+      global: true,
       options: {
         identifierNamesGenerator: 'hexadecimal',
         controlFlowFlattening: true,
