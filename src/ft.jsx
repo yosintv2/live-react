@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState, useCallback } from 'react'
 import { TopAd, StickyAd, AdSenseLoader } from './components/GoogleAds'
 import Monetag from './components/Monetag'
-import AdRedirect from './components/AdRedirect'
 import AdBlockDetector from './components/AdBlockDetector'
 
 const {
@@ -98,7 +97,6 @@ export default function FT() {
     <>
       <AdSenseLoader />
       <Monetag />
-      <AdRedirect />
       <AdBlockDetector />
 
       <div className="header-banner">{siteName}</div>
