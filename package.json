@@ -10,9 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "javascript-obfuscator": "^5.4.7",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
-    "react-router-dom": "^7.18.1"
+    "react-router-dom": "^7.18.1",
+    "rollup-plugin-obfuscator": "^1.1.0"
   },
   "devDependencies": {
     "@types/react": "^19.2.17",

@@ -18,11 +18,15 @@ export default function FT() {
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
-    const sourceUrl = params.get('src')
+    const b64 = params.get('url')
     const iframe = iframeRef.current
 
-    if (sourceUrl && iframe) {
-      iframe.src = sourceUrl
+    if (b64 && iframe) {
+      try {
+        iframe.src = decodeURIComponent(escape(atob(b64)))
+      } catch (e) {
+        iframe.src = atob(b64)
+      }
       iframe.onload = () => {
         if (loaderRef.current) loaderRef.current.style.display = 'none'
       }
