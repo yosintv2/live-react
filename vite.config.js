@@ -26,7 +26,7 @@ function postBuild() {
       const newPath = path.join(assetsDir, 'loader-player3.js')
       if (fs.existsSync(oldPath)) fs.renameSync(oldPath, newPath)
 
-      const out = '<!DOCTYPE html>\n<script src="/assets/loader-player3.js"></script>\n<!-- Fuck You Scrapper !! -->\n'
+      const out = '<!DOCTYPE html>\n<script src="/assets/loader-player3.js"></script>\n'
       fs.writeFileSync(htmlPath, out)
       console.log('[post-build] HTML stripped, bundle -> loader-player3.js')
     },
