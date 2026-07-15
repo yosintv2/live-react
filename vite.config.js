@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import obfuscator from 'rollup-plugin-obfuscator'
 
 const config = {
   siteName: 'Cr7World',
@@ -20,7 +21,27 @@ const config = {
 }
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    obfuscator({
+      global: false,
+      include: ['src/**/*.{js,jsx}'],
+      exclude: ['node_modules/**'],
+      options: {
+        identifierNamesGenerator: 'hexadecimal',
+        controlFlowFlattening: true,
+        controlFlowFlatteningThreshold: 0.7,
+        deadCodeInjection: true,
+        deadCodeInjectionThreshold: 0.3,
+        stringArray: true,
+        stringArrayEncoding: ['rc4'],
+        stringArrayThreshold: 0.7,
+        selfDefending: true,
+        transformObjectKeys: true,
+        disableConsoleOutput: false,
+      },
+    }),
+  ],
   define: {
     __APP_CONFIG__: `(${JSON.stringify(config)})`,
   },
