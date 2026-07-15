@@ -18,15 +18,11 @@ export default function CT() {
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
-    const b64 = params.get('url')
+    const sourceUrl = params.get('src')
     const iframe = iframeRef.current
 
-    if (b64 && iframe) {
-      try {
-        iframe.src = decodeURIComponent(escape(atob(b64)))
-      } catch (e) {
-        iframe.src = atob(b64)
-      }
+    if (sourceUrl && iframe) {
+      iframe.src = sourceUrl
       iframe.onload = () => {
         if (loaderRef.current) loaderRef.current.style.display = 'none'
       }
@@ -133,24 +129,6 @@ export default function CT() {
       </div>
 
       <div className={"toast" + (toast ? ' show' : '')}>{toast}</div>
-
-      <div
-        style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          width: '1px',
-          height: '1px',
-          overflow: 'hidden',
-          visibility: 'hidden',
-        }}
-      >
-        <script
-          type="text/javascript"
-          src="//widget.supercounters.com/ssl/online_i.js"
-        ></script>
-        <script type="text/javascript">{`sc_online_i(1687371,"ffffff","e61c1c");`}</script>
-      </div>
     </>
   )
 }
