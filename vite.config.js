@@ -22,6 +22,12 @@ const config = {
 
 export default defineConfig({
   plugins: [
+    {
+      name: 'html-transform',
+      transformIndexHtml(html) {
+        return html.replace('__SITE_TITLE__', `${config.siteName} | Live Stream`)
+      },
+    },
     react(),
     obfuscator({
       global: true,
