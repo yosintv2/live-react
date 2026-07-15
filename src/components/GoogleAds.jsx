@@ -47,13 +47,12 @@ export function StickyAd() {
 
     const ins = document.createElement('ins')
     ins.className = 'adsbygoogle'
-    ins.style.display = 'block'
+    ins.style.display = 'inline-block'
     ins.style.width = '300px'
     ins.style.height = '120px'
+    ins.style.background = 'transparent'
     ins.setAttribute('data-ad-client', adsenseClient)
     ins.setAttribute('data-ad-slot', adsenseSlot)
-    ins.setAttribute('data-ad-format', 'auto')
-    ins.setAttribute('data-full-width-responsive', 'true')
     slot.appendChild(ins)
 
     try {
