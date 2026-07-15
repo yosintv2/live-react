@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react'
 import obfuscator from 'rollup-plugin-obfuscator'
 
 const config = {
-  siteName: 'Cr7World',
+  siteName: 'Football Live',
   supportNote: 'Stream loading below — thanks for watching!',
   promoText: 'Join our community for live updates!',
   shareText: 'Share with Friends & Family',
