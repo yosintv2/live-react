@@ -33,6 +33,8 @@ export function TopAd() {
 export function StickyAd() {
   const [visible, setVisible] = useState(true)
   const slotRef = useRef(null)
+  const adRef = useRef(null)
+  const touchStart = useRef(0)
 
   useEffect(() => {
     const slot = slotRef.current
@@ -40,17 +42,13 @@ export function StickyAd() {
 
     const ins = document.createElement('ins')
     ins.className = 'adsbygoogle'
-    ins.style.display = 'inline-block'
-    ins.style.width = '300px'
-    ins.style.height = '250px'
-    ins.style.minWidth = '300px'
-    ins.style.maxWidth = '300px'
-    ins.style.minHeight = '250px'
-    ins.style.maxHeight = '250px'
+    ins.style.display = 'block'
+    ins.style.width = '100%'
+    ins.style.height = '150px'
     ins.setAttribute('data-ad-client', adsenseClient)
     ins.setAttribute('data-ad-slot', adsenseSlot)
-    ins.setAttribute('data-ad-format', '')
-    ins.setAttribute('data-full-width-responsive', 'false')
+    ins.setAttribute('data-ad-format', 'auto')
+    ins.setAttribute('data-full-width-responsive', 'true')
     slot.appendChild(ins)
 
     try {
@@ -62,10 +60,28 @@ export function StickyAd() {
     }
   }, [])
 
+  useEffect(() => {
+    var el = adRef.current
+    if (!el) return
+
+    var h = function(e) {
+      var y = e.changedTouches ? e.changedTouches[0].screenY : 0
+      if (e.type === 'touchstart') { touchStart.current = y; return }
+      if (e.type === 'touchend' && touchStart.current - y > 50) setVisible(false)
+    }
+
+    el.addEventListener('touchstart', h)
+    el.addEventListener('touchend', h)
+    return function() {
+      el.removeEventListener('touchstart', h)
+      el.removeEventListener('touchend', h)
+    }
+  }, [])
+
   if (!visible) return null
 
   return (
-    <div id="stickyAd" className="sticky-ad-footer" style={{ display: 'block' }}>
+    <div id="stickyAd" ref={adRef} className="sticky-ad-footer">
       <button
         id="stickyAdClose"
         className="sticky-ad-close"
@@ -75,6 +91,7 @@ export function StickyAd() {
       >
         X
       </button>
+      <div className="swipe-bar"></div>
       <div id="stickyAdSlot" ref={slotRef}></div>
     </div>
   )
