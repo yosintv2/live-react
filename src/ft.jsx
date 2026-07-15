@@ -99,25 +99,6 @@ export default function FT() {
 
       <div className="header-banner">Cr7World</div>
 
-      <div className="jersey-container">
-        <div className="jersey-info">
-          <div className="jersey-icon">
-            <i className="fas fa-tshirt"></i>
-          </div>
-          <div className="jersey-text">
-            <h4>2025/26 Jerseys Available Now!</h4>
-            <p>Premium quality — worldwide shipping</p>
-          </div>
-        </div>
-        <a
-          className="btn-buy-now"
-          href="https://shop.seven-corp.com/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <i className="fas fa-shopping-cart"></i> Buy Now
-        </a>
-      </div>
 
       <div className="support-note">Stream loading below — thanks for watching!</div>
 
