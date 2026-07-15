@@ -1,8 +1,9 @@
 (function(){
-  var ids = { '/': '1665792', '/ct': '1687371' }
-  var id = ids[window.location.pathname] || '1665792'
+  var w = _wau || []
+  w.push(["dynamic", "alan3d8iti", "ela", "c4302bffffff", "small"])
+  window._wau = w
   var s = document.createElement('script')
-  s.src = '//widget.supercounters.com/ssl/online_i.js'
-  s.onload = function(){ sc_online_i(id,"ffffff","e61c1c") }
+  s.async = true
+  s.src = '//waust.at/d.js'
   document.head.appendChild(s)
 })()
