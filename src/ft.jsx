@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState, useCallback } from 'react'
-import { TopAd, StickyAd, AdSenseLoader } from '../components/GoogleAds'
-import Monetag from '../components/Monetag'
-import AdRedirect from '../components/AdRedirect'
-import AdBlockDetector from '../components/AdBlockDetector'
+import { TopAd, StickyAd, AdSenseLoader } from './components/GoogleAds'
+import Monetag from './components/Monetag'
+import AdRedirect from './components/AdRedirect'
+import AdBlockDetector from './components/AdBlockDetector'
 
 export default function FT() {
   const iframeRef = useRef(null)
