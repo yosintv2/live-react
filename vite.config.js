@@ -15,7 +15,7 @@ const config = {
   adsenseSlot: '3322637685',
   monetagZone: '7463304',
   redirectUrl: 'https://yosintv-api.pages.dev/api/ads',
-  email: 'contact@yonotv.net',
+  email: ' ',
   ftSupercounterId: '1665792',
   ctSupercounterId: '1687371',
 }
