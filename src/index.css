@@ -121,6 +121,12 @@ body {
   box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
   text-align: center;
   overflow: hidden;
+  transform: translateY(0);
+  transition: transform 0.3s ease;
+}
+
+.sticky-ad-footer.slide-down {
+  transform: translateY(100%);
 }
 
 .sticky-ad-close {

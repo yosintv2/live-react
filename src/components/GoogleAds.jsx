@@ -31,10 +31,15 @@ export function TopAd() {
 }
 
 export function StickyAd() {
-  const [visible, setVisible] = useState(true)
+  const [show, setShow] = useState(false)
+  const [remove, setRemove] = useState(false)
   const slotRef = useRef(null)
   const adRef = useRef(null)
   const touchStart = useRef(0)
+
+  useEffect(() => {
+    requestAnimationFrame(function() { setShow(true) })
+  }, [])
 
   useEffect(() => {
     const slot = slotRef.current
@@ -60,14 +65,19 @@ export function StickyAd() {
     }
   }, [])
 
-  useEffect(() => {
+  var close = function() {
+    setShow(false)
+    setTimeout(function() { setRemove(true) }, 300)
+  }
+
+  useEffect(function() {
     var el = adRef.current
-    if (!el) return
+    if (!el || remove) return
 
     var h = function(e) {
       var y = e.changedTouches ? e.changedTouches[0].screenY : 0
       if (e.type === 'touchstart') { touchStart.current = y; return }
-      if (e.type === 'touchend' && touchStart.current - y > 50) setVisible(false)
+      if (e.type === 'touchend' && touchStart.current - y > 50) close()
     }
 
     el.addEventListener('touchstart', h)
@@ -76,18 +86,18 @@ export function StickyAd() {
       el.removeEventListener('touchstart', h)
       el.removeEventListener('touchend', h)
     }
-  }, [])
+  }, [remove])
 
-  if (!visible) return null
+  if (remove) return null
 
   return (
-    <div id="stickyAd" ref={adRef} className="sticky-ad-footer">
+    <div id="stickyAd" ref={adRef} className={'sticky-ad-footer' + (show ? '' : ' slide-down')}>
       <button
         id="stickyAdClose"
         className="sticky-ad-close"
         type="button"
         aria-label="Close ad"
-        onClick={() => setVisible(false)}
+        onClick={close}
       >
         X
       </button>
