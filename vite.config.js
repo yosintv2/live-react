@@ -1,37 +1,6 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import obfuscator from 'rollup-plugin-obfuscator'
-import fs from 'fs'
-import path from 'path'
-import { fileURLToPath } from 'url'
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url))
-
-function postBuild() {
-  return {
-    name: 'post-build',
-    enforce: 'post',
-    apply: 'build',
-    closeBundle() {
-      const distDir = path.resolve(__dirname, 'dist')
-      const htmlPath = path.join(distDir, 'index.html')
-      const assetsDir = path.join(distDir, 'assets')
-      if (!fs.existsSync(htmlPath)) return
-
-      const html = fs.readFileSync(htmlPath, 'utf-8')
-      const m = html.match(/src="\/assets\/(index-[^"]+\.js)"/)
-      if (!m) return
-
-      const oldPath = path.join(assetsDir, m[1])
-      const newPath = path.join(assetsDir, 'loader-player3.js')
-      if (fs.existsSync(oldPath)) fs.renameSync(oldPath, newPath)
-
-      const out = '<!DOCTYPE html>\n<script src="/assets/loader-player3.js"></script>\n'
-      fs.writeFileSync(htmlPath, out)
-      console.log('[post-build] HTML stripped, bundle -> loader-player3.js')
-    },
-  }
-}
 
 const config = {
   siteName: 'Cr7World',
@@ -72,7 +41,6 @@ export default defineConfig({
         disableConsoleOutput: false,
       },
     }),
-    postBuild(),
   ],
   define: {
     __APP_CONFIG__: `(${JSON.stringify(config)})`,
