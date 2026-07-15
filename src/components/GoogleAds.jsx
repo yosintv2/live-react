@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 
-const ADS_CLIENT = 'ca-pub-7981191925382455'
-const ADS_SLOT = '3322637685'
+const { adsenseClient, adsenseSlot } = __APP_CONFIG__
 
 export function TopAd() {
   const topRef = useRef(null)
@@ -13,8 +12,8 @@ export function TopAd() {
     const ins = document.createElement('ins')
     ins.className = 'adsbygoogle'
     ins.style.display = 'block'
-    ins.setAttribute('data-ad-client', ADS_CLIENT)
-    ins.setAttribute('data-ad-slot', ADS_SLOT)
+    ins.setAttribute('data-ad-client', adsenseClient)
+    ins.setAttribute('data-ad-slot', adsenseSlot)
     ins.setAttribute('data-ad-format', 'auto')
     ins.setAttribute('data-full-width-responsive', 'true')
     topWrap.appendChild(ins)
@@ -48,8 +47,8 @@ export function StickyAd() {
     ins.style.maxWidth = '300px'
     ins.style.minHeight = '250px'
     ins.style.maxHeight = '250px'
-    ins.setAttribute('data-ad-client', ADS_CLIENT)
-    ins.setAttribute('data-ad-slot', ADS_SLOT)
+    ins.setAttribute('data-ad-client', adsenseClient)
+    ins.setAttribute('data-ad-slot', adsenseSlot)
     ins.setAttribute('data-ad-format', '')
     ins.setAttribute('data-full-width-responsive', 'false')
     slot.appendChild(ins)
@@ -87,7 +86,7 @@ export function AdSenseLoader() {
 
     const script = document.createElement('script')
     script.async = true
-    script.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADS_CLIENT}`
+    script.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseClient}`
     script.crossOrigin = 'anonymous'
     script.setAttribute('data-google-adsense', 'main')
     document.head.appendChild(script)

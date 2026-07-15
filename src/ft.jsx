@@ -4,6 +4,11 @@ import Monetag from './components/Monetag'
 import AdRedirect from './components/AdRedirect'
 import AdBlockDetector from './components/AdBlockDetector'
 
+const {
+  siteName, supportNote, promoText, shareText, copyText,
+  telegramUrl, whatsappUrl, linksApiUrl,
+} = __APP_CONFIG__
+
 export default function FT() {
   const iframeRef = useRef(null)
   const loaderRef = useRef(null)
@@ -37,11 +42,10 @@ export default function FT() {
 
   useEffect(() => {
     async function loadRandomLink() {
-      const remoteUrl = 'https://cdn.singhs.com.np/api/links.json'
       let links = []
 
       try {
-        const r = await fetch(remoteUrl, { cache: 'no-cache' })
+        const r = await fetch(linksApiUrl, { cache: 'no-cache' })
         if (r.ok) {
           const data = await r.json()
           const arr = Array.isArray(data) ? data : (Array.isArray(data.data) ? data.data : [])
@@ -97,10 +101,9 @@ export default function FT() {
       <AdRedirect />
       <AdBlockDetector />
 
-      <div className="header-banner">Cr7World</div>
+      <div className="header-banner">{siteName}</div>
 
-
-      <div className="support-note">Stream loading below — thanks for watching!</div>
+      <div className="support-note">{supportNote}</div>
 
       <TopAd />
 
@@ -133,13 +136,13 @@ export default function FT() {
       <StickyAd />
 
       <div className="promo-card">
-        <span>📢 Join our community for live updates!</span>
+        <span>{promoText}</span>
         <div className="promo-buttons">
-          <a href="https://t.me/yosintvlive" target="_blank" rel="noopener noreferrer">
+          <a href={telegramUrl} target="_blank" rel="noopener noreferrer">
             <i className="fab fa-telegram-plane"></i> Telegram
           </a>
           <a
-            href="https://www.whatsapp.com/channel/0029Vb7ikzn9hXF5ec0uUI0H"
+            href={whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -149,9 +152,9 @@ export default function FT() {
       </div>
 
       <div className="info-card">
-        <span>Share with Friends & Family</span>
+        <span>{shareText}</span>
         <button onClick={shareLink}>
-          <i className="fas fa-share-alt"></i> Copy This Live Stream ❤️
+          <i className="fas fa-share-alt"></i> {copyText} ❤️
         </button>
       </div>
 
@@ -160,7 +163,7 @@ export default function FT() {
           <i className="fas fa-balance-scale"></i> DMCA Notice
         </div>
         <div className="dmca-text">
-          <strong>Cr7World</strong> does not host any media content on its own servers. Our site
+          <strong>{siteName}</strong> does not host any media content on its own servers. Our site
           visitors might use external or third parties services to show content (Example: Embedding
           media from sites like <strong>Bet365, Dailymotion, Streamable</strong>, etc.)
         </div>
